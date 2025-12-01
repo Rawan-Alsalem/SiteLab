@@ -60,7 +60,7 @@ These enhance the user experience and provide extra value:
 ---
 
 ## User Stories
-[Link to User Stories](#)
+[Link to User Stories](https://drive.google.com/file/d/1IBFntmXBGcXp4EuBJt4PPIwv9rPCGmDY/view?usp=sharing)
 
 ## UML Diagrams
 ### Use Case Diagram
