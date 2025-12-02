@@ -1,0 +1,233 @@
+{% extends 'main/base.html' %}
+{% block title %}Home - SiteLab{% endblock %}
+
+{% block content %}
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<section class="hero-wrapper mt-5">
+    <div class="container">
+        <div class="row align-items-center mt-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <span class="badge bg-white text-primary px-3 py-2 rounded-pill shadow-sm mb-3">
+                    <i class="fa-solid fa-star me-1 text-warning"></i> #1 Website Builder
+                </span>
+                <h1 class="display-3 fw-bolder mb-3 lh-1">
+                    Turn Ideas Into <br>
+                    <span class="text-gradient">Digital Reality</span>
+                </h1>
+                <p class="lead text-muted mb-5">
+                    Don't just build a website. Create an experience. 
+                    Whether you need a quick portfolio or a custom powerhouse, we have the tools.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="/portfolios/our-services/" class="btn btn-custom-primary shadow-lg">
+                        Get Started <i class="fa-solid fa-arrow-right ms-2"></i>
+                    </a>
+                    <a href="#services" class="btn btn-light glass-card border-0 px-4 d-flex align-items-center">
+                        <i class="fa-solid fa-play text-primary me-2"></i> View Services
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mt-5 mt-lg-0 text-center position-relative" data-aos="zoom-in" data-aos-delay="200">
+\                <div class="position-relative d-inline-block">
+                    <div class="glass-card p-5 floating-element">
+                        <i class="fa-solid fa-layer-group text-primary" style="font-size: 8rem;"></i>
+                    </div>
+                    
+                    <div class="glass-card p-3 position-absolute top-0 end-0 translate-middle-y floating-element" 
+                         style="animation-delay: 1s; z-index: 2;">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="bg-success rounded-circle p-2 text-white">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <small class="fw-bold">SEO Ready</small>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card p-3 position-absolute bottom-0 start-0 translate-middle-y floating-element"
+                         style="animation-delay: 2s; z-index: 2;">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="bg-warning rounded-circle p-2 text-white">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <small class="fw-bold">Super Fast</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h6 class="text-primary fw-bold text-uppercase ls-2">Our Expertise</h6>
+            <h2 class="display-5 fw-bold">How We Help You Grow</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-card p-5 h-100 position-relative overflow-hidden group">
+                    <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                        <i class="fa-solid fa-palette display-1"></i>
+                    </div>
+                    
+                    <div class="bg-primary text-white rounded-circle d-inline-flex p-3 mb-4 shadow-sm">
+                        <i class="fa-solid fa-wand-magic-sparkles fs-3"></i>
+                    </div>
+                    
+                    <h3 class="fw-bold mb-3">Portfolio Templates</h3>
+                    <p class="text-muted mb-4">
+                        Speed meets style. Select from our curated list of high-performance templates designed to convert visitors into clients.
+                    </p>
+                    <a href="/portfolios/our-services/" class="text-primary fw-bold text-decoration-none stretched-link">
+                        Explore Templates <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-card p-5 h-100 position-relative overflow-hidden">
+                    <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                        <i class="fa-solid fa-code display-1"></i>
+                    </div>
+
+                    <div class="bg-warning text-white rounded-circle d-inline-flex p-3 mb-4 shadow-sm">
+                        <i class="fa-solid fa-gem fs-3"></i>
+                    </div>
+                    
+                    <h3 class="fw-bold mb-3">Custom Development</h3>
+                    <p class="text-muted mb-4">
+                        Have a specific vision? Our engineering team will build a pixel-perfect, fully functional custom website just for you.
+                    </p>
+                    <a href="/portfolios/custom-website/" class="text-warning fw-bold text-decoration-none stretched-link">
+                        Start Custom Project <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" data-aos="zoom-in">
+    <div class="container">
+        <div class="glass-card p-5 text-center">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h2 class="display-4 fw-bold text-primary">500+</h2>
+                    <p class="text-muted">Projects Launched</p>
+                </div>
+                <div class="col-md-4 border-start border-end border-secondary-subtle">
+                    <h2 class="display-4 fw-bold text-primary">98%</h2>
+                    <p class="text-muted">Client Satisfaction</p>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="display-4 fw-bold text-primary">24/7</h2>
+                    <p class="text-muted">Support Available</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-right">
+            <div>
+                <h2 class="fw-bold display-6">Community Love</h2>
+                <p class="text-muted mb-0">Don't just take our word for it.</p>
+            </div>
+            <a href="#" class="btn btn-outline-dark rounded-pill">View All</a>
+        </div>
+
+        <div class="row g-4">
+            {% if top_reviews %}
+                {% for review in top_reviews %}
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                {{ review.user.username|slice:":1"|upper }}
+                            </div>
+                            <div class="ms-3">
+                                <h6 class="fw-bold mb-0">{{ review.user.username }}</h6>
+                                <small class="text-muted">Verified User</small>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-warning">
+                             {% for i in "12345"|make_list %}
+                                <i class="fa-solid fa-star"></i>
+                            {% endfor %}
+                        </div>
+                        <p class="fst-italic text-muted">"{{ review.text }}"</p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">S</div>
+                            <div class="ms-3">
+                                <h6 class="fw-bold mb-0">Sarah Jenkins</h6>
+                                <small class="text-muted">Freelancer</small>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-warning">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="fst-italic text-muted">"SiteLab completely transformed my portfolio. I got three job offers within a week of launching!"</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">M</div>
+                            <div class="ms-3">
+                                <h6 class="fw-bold mb-0">Mark D.</h6>
+                                <small class="text-muted">Agency Owner</small>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-warning">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="fst-italic text-muted">"The custom website team is top-tier. They handled our complex requirements with ease."</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">A</div>
+                            <div class="ms-3">
+                                <h6 class="fw-bold mb-0">Alex T.</h6>
+                                <small class="text-muted">Photographer</small>
+                            </div>
+                        </div>
+                        <div class="mb-3 text-warning">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <p class="fst-italic text-muted">"Clean, modern, and super easy to use. I love the new dashboard features."</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5 text-center mb-5" data-aos="zoom-in-up">
+    <div class="container">
+        <div class="glass-card p-5 bg-dark text-white" style="background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);">
+            <h2 class="fw-bold mb-3">Ready to Start?</h2>
+            <p class="mb-4 opacity-75">Join the future of web creation today.</p>
+            <a href="/contacts/contact-us/" class="btn btn-custom-primary btn-lg px-5">Get In Touch</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

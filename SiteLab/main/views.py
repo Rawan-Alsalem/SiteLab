@@ -1,3 +1,10 @@
 from django.shortcuts import render
+# from portfolios.models import Review 
 
-# Create your views here.
+# def home(request):
+#     top_reviews = Review.objects.filter(rating=5)[:3]  
+#     return render(request, 'main/index.html', {'top_reviews': top_reviews})
+
+def home(request):
+    return render(request, 'main/index.html')
+
