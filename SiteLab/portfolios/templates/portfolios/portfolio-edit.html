@@ -19,95 +19,186 @@
             <i class="fa-solid fa-paint-brush text-primary me-3"></i> 
             Customize Your <span class="text-gradient">Portfolio</span>
         </h1>
-        <p class="lead text-muted small">Template: Professional Designer (ID: {{ request.GET.template|default:'1' }})</p>
+        <p class="lead text-muted small">Template: {{ template_name }} (ID: {{ template_id }})</p>
     </div>
 </section>
 
 <section class="pb-5">
     <div class="container">
         
-        <div class="row mb-5" data-aos="fade-up">
-            <div class="col-12">
-                <div class="glass-card p-4">
-                    <h6 class="fw-bold mb-3 text-dark">Setup Progress</h6>
-                    <div class="progress" style="height: 10px;">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <div class="card shadow-lg h-100" data-aos="fade-right">
+                    <div class="card-header bg-primary text-white fw-bold">
+                        <i class="fa-solid fa-sliders me-2"></i> Content Editor
                     </div>
-                    <div class="d-flex justify-content-between small text-muted mt-2">
-                        <span>1. Content</span>
-                        <span>2. Details</span>
-                        <span class="fw-bold text-dark">3. Publish (Next)</span>
+                    <div class="card-body p-4">
+                        <form method="post" id="portfolio-form" action="{% url 'portfolios:portfolio_edit' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="template_id" value="{{ template_id }}">
+                            
+                            {% for field in form %}
+                                <div class="mb-3">
+                                    <label for="{{ field.id_for_label }}" class="form-label fw-bold">{{ field.label }}</label>
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="text-danger small">{{ field.errors }}</div>
+                                    {% endif %}
+                                    {% if field.help_text %}
+                                        <div class="form-text small">{{ field.help_text }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            
+                            <hr class="my-4">
+
+                            <div class="d-flex gap-3">
+                                <button type="submit" name="save" class="btn btn-secondary flex-grow-1 shadow-sm">
+                                    <i class="fa-solid fa-save me-2"></i> Save Changes
+                                </button>
+                                
+                                <button type="submit" name="publish" class="btn btn-success flex-grow-1 shadow-lg">
+                                    <i class="fa-solid fa-cloud-upload-alt me-2"></i> Publish Site
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row g-5">
-            
-            <div class="col-lg-6" data-aos="fade-right">
-                <div class="glass-card p-4 h-100">
-                    <h4 class="fw-bold mb-4">Edit Page Content</h4>
-                    
-                    <form>
-                        
-                        <div class="mb-3">
-                            <label for="portfolioName" class="form-label fw-bold">1. Portfolio Title</label>
-                            <input type="text" class="form-control" id="portfolioName" value="Samantha J. - UI/UX Designer" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="heroTitle" class="form-label fw-bold">2. Hero Headline</label>
-                            <input type="text" class="form-control" id="heroTitle" value="Designing the Future of Digital Experiences">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="aboutText" class="form-label fw-bold">3. About Me Text</label>
-                            <textarea class="form-control" id="aboutText" rows="4">I am a passionate UI/UX designer with 8 years of experience building scalable, user-centric interfaces for global tech companies. My focus is on simplicity, accessibility, and measurable business impact.</textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email" class="form-label fw-bold">4. Contact Email</label>
-                            <input type="email" class="form-control" id="email" value="samantha@example.com">
-                        </div>
-                        
-                        <div class="mb-4">
-                             <label for="primaryColor" class="form-label fw-bold">5. Primary Brand Color</label>
-                             <input type="color" class="form-control form-control-color" id="primaryColor" value="#0d6efd" title="Choose your primary color">
-                        </div>
-
-                        <div class="alert alert-info small" role="alert">
-                            <i class="fa-solid fa-info-circle me-2"></i>Note: Image uploads and deep component editing are managed in the next steps.
-                        </div>
-
-                        <a href="{% url 'portfolios:portfolio_published' %}" class="btn btn-lg btn-success w-100 shadow-lg">
-                            <i class="fa-solid fa-cloud-upload-alt me-2"></i> Save & Publish Site
-                        </a>
-                    </form>
-                </div>
-            </div>
-
-            <div class="col-lg-6" data-aos="fade-left">
-                <h4 class="fw-bold mb-3">Live Preview</h4>
-                <div class="glass-card p-0 overflow-hidden shadow-xl" style="height: 600px; border-radius: 1rem;">
-                    <div class="bg-dark text-white p-2 d-flex justify-content-between align-items-center">
+            <div class="col-lg-7">
+                <div class="card shadow-lg h-100 preview-wrapper" data-aos="fade-left">
+                    <div class="card-header bg-dark text-white p-2 d-flex justify-content-between align-items-center">
                         <small class="opacity-75"><i class="fa-solid fa-circle text-danger me-1"></i> <i class="fa-solid fa-circle text-warning me-1"></i> <i class="fa-solid fa-circle text-success me-3"></i> live-preview-samanthaj.sitelab.com</small>
-                        <div>
-                            <i class="fa-solid fa-mobile-alt me-2 cursor-pointer" title="Mobile View"></i>
-                            <i class="fa-solid fa-tablet-alt me-2 cursor-pointer" title="Tablet View"></i>
-                            <i class="fa-solid fa-desktop cursor-pointer" title="Desktop View"></i>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-mobile-alt me-3 text-white-50 screen-toggle-btn active" data-width="w-mobile" title="Mobile View"></i>
+                            <i class="fa-solid fa-tablet-alt me-3 text-white-50 screen-toggle-btn" data-width="w-tablet" title="Tablet View"></i>
+                            <i class="fa-solid fa-desktop me-2 text-white-50 screen-toggle-btn" data-width="w-desktop" title="Desktop View"></i>
                         </div>
                     </div>
-                    <div class="p-3 text-center bg-light h-100 d-flex flex-column justify-content-center align-items-center">
-                        <i class="fa-solid fa-globe display-1 text-primary mb-3"></i>
-                        <p class="fw-bold">Preview Loading...</p>
-                        <p class="small text-muted">Your template preview appears here as you make changes.</p>
-                        <img src="https://placehold.co/400x200/e0f7fa/00bcd4?text=Template+Snapshot" alt="Template Snapshot" class="img-fluid rounded shadow-sm">
+                    
+                    <div class="card-body p-0 overflow-hidden">
+                        <iframe id="preview-iframe" 
+                            src="{% url 'portfolios:preview_view' %}" 
+                            style="width: 100%; height: 100%; border: none;">
+                        </iframe>
                     </div>
+
                 </div>
             </div>
             
         </div>
     </div>
 </section>
+
+<style>
+    .text-gradient {
+        background: linear-gradient(45deg, #0d6efd, #00c6ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .blob {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        background: rgba(13, 110, 253, 0.1);
+        border-radius: 50%;
+        filter: blur(100px);
+        z-index: -1;
+        opacity: 0.5;
+    }
+    .blob-1 { background: rgba(13, 110, 253, 0.15); }
+    .blob-2 { background: rgba(253, 13, 134, 0.15); }
+    
+    .preview-wrapper .card-body {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 44px); 
+    }
+
+    .preview-wrapper iframe {
+        transition: width 0.3s ease-in-out;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .screen-toggle-btn {
+        transition: color 0.2s;
+    }
+    .screen-toggle-btn:hover {
+        color: white !important;
+    }
+    .screen-toggle-btn.active {
+        color: #0d6efd !important;
+    }
+
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const iframe = document.getElementById('preview-iframe');
+        const form = document.getElementById('portfolio-form');
+        const saveButton = form.querySelector('button[name="save"]');
+        const publishButton = form.querySelector('button[name="publish"]');
+        const toggleButtons = document.querySelectorAll('.screen-toggle-btn');
+        const cardBody = document.querySelector('.preview-wrapper .card-body');
+        
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                toggleButtons.forEach(btn => btn.classList.remove('active', 'text-white'));
+                this.classList.add('active', 'text-white'); 
+                cardBody.style.justifyContent = 'center';
+                cardBody.style.alignItems = 'center';
+                
+                const widthType = this.getAttribute('data-width');
+                let newWidth;
+                
+                if (widthType === 'w-mobile') {
+                    newWidth = '375px';
+                } else if (widthType === 'w-tablet') {
+                    newWidth = '768px';
+                } else { 
+                    newWidth = '100%';
+                    cardBody.style.display = 'block'; 
+                }
+                
+                iframe.style.width = newWidth;
+                iframe.style.boxShadow = widthType !== 'w-desktop' ? '0 0 20px rgba(0,0,0,0.1)' : 'none';
+                
+                toggleButtons.forEach(btn => {
+                    if (!btn.classList.contains('active')) {
+                        btn.classList.add('text-white-50');
+                    }
+                });
+
+                this.classList.remove('text-white-50');
+                this.classList.add('text-white');
+            });
+        });
+
+        document.querySelector('.screen-toggle-btn[data-width="w-mobile"]').click();
+        
+        let refreshTimeout;
+        const debounceRefresh = () => {
+            clearTimeout(refreshTimeout);
+            refreshTimeout = setTimeout(() => {
+                iframe.contentWindow.location.reload();
+            }, 500); 
+        };
+
+        form.querySelectorAll('input, textarea, select').forEach(field => {
+            field.addEventListener('input', debounceRefresh);
+        });
+
+        saveButton.addEventListener('click', function(e) {
+    
+        });
+        
+        publishButton.addEventListener('click', function(e) {
+            
+        });
+
+    });
+</script>
 
 {% endblock %}

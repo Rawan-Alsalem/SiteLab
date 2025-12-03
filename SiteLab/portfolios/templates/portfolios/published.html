@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ template_name }} - Published Site</title>
+</head>
+<body>
+    {% if template_path %}
+        {% include template_path %}
+    {% else %}
+    
+        <div style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: sans-serif;">
+            <h1 style="color: #dc3545;">404 - Template Not Found</h1>
+            <p>The selected portfolio template could not be loaded.</p>
+            <p>Please return to the SiteLab dashboard to check your settings.</p>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,147 @@
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .template-navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .template-footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 3rem 0;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #0d6efd, #00c6ff);
+            color: white;
+            padding: 8rem 0;
+            text-align: center;
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .card-project {
+            transition: transform 0.3s ease;
+        }
+        .card-project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+    </style>
+    
+    <div id="template-content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white template-navbar fixed-top">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-primary" href="#home">{{ data.full_name }}</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link btn btn-primary btn-sm text-white ms-lg-3 px-3" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <header id="home" class="hero-section">
+            <div class="container">
+                <img src="https://placehold.co/150x150/ffffff/0d6efd?text=JD" 
+                     alt="Profile Picture" 
+                     class="profile-img mb-4">
+                
+                <h1 class="display-4 fw-bold mb-2">{{ data.full_name }}</h1>
+                <p class="lead mb-4 fw-light">{{ data.tagline }}</p>
+                
+                <a href="#projects" class="btn btn-light btn-lg text-primary shadow-sm me-3">View Work <i class="fa-solid fa-arrow-right ms-2"></i></a>
+                <a href="#contact" class="btn btn-outline-light btn-lg shadow-sm">Get in Touch</a>
+            </div>
+        </header>
+
+        <section id="about" class="py-5">
+            <div class="container" style="max-width: 800px;">
+                <h3 class="fw-bold mb-4 text-center text-primary">About Me</h3>
+                <p class="lead text-muted text-center">{{ data.about_me }}</p>
+            </div>
+        </section>
+
+        <section id="skills" class="py-5 bg-light">
+            <div class="container">
+                <h3 class="fw-bold mb-5 text-center text-primary">Key Skills</h3>
+                <div class="row row-cols-2 row-cols-md-4 g-4 text-center">
+                    <div class="col"><i class="fab fa-figma display-4 text-primary mb-2"></i><p class="fw-bold">UI/UX Design</p></div>
+                    <div class="col"><i class="fab fa-html5 display-4 text-warning mb-2"></i><p class="fw-bold">Front-end Dev</p></div>
+                    <div class="col"><i class="fab fa-python display-4 text-success mb-2"></i><p class="fw-bold">Backend Logic</p></div>
+                    <div class="col"><i class="fas fa-database display-4 text-info mb-2"></i><p class="fw-bold">Database Mgmt</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-5">
+            <div class="container">
+                <h3 class="fw-bold mb-5 text-center text-primary">Featured Projects</h3>
+                <div class="row g-4">
+                    
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-project shadow-sm h-100">
+                            <img src="https://placehold.co/600x400/0d6efd/FFFFFF?text=Project+1" class="card-img-top" alt="Project 1">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-dark">E-Commerce Platform Redesign</h5>
+                                <p class="card-text small text-muted">Led the redesign and prototyping of a new mobile shopping experience, resulting in a 30% increase in conversion.</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-project shadow-sm h-100">
+                            <img src="https://placehold.co/600x400/28a745/FFFFFF?text=Project+2" class="card-img-top" alt="Project 2">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-dark">Internal Analytics Dashboard</h5>
+                                <p class="card-text small text-muted">Developed a real-time data visualization tool using D3.js, cutting report generation time by 50% for the marketing team.</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-project shadow-sm h-100">
+                            <img src="https://placehold.co/600x400/6c757d/FFFFFF?text=Project+3" class="card-img-top" alt="Project 3">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold text-dark">Mobile App Prototype</h5>
+                                <p class="card-text small text-muted">Created a full-fidelity prototype for a health and wellness mobile application, focusing on accessibility standards.</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary">View Case Study</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-5">
+            <div class="container text-center" style="max-width: 600px;">
+                <h3 class="fw-bold mb-4 text-primary">Get In Touch</h3>
+                <p class="lead text-muted">
+                    I am currently open to new opportunities. Let's build something amazing together!
+                </p>
+                <a href="mailto:{{ data.contact_email }}" class="btn btn-primary btn-lg mt-3">Email Me</a>
+                <p class="small text-muted mt-3">{{ data.contact_email }}</p>
+            </div>
+        </section>
+        
+        <footer class="template-footer text-center">
+            <div class="container">
+                <p class="mb-0 small">{{ data.full_name }} | {{ data.tagline }}</p>
+                <p class="mb-0 small text-muted">Built with SiteLab</p>
+            </div>
+        </footer>
+    </div>

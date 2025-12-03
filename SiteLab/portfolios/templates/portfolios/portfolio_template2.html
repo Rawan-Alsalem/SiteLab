@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ template_name }} Preview - SiteLab</title>
+    
+    <!-- Load Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Load Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f4f4f4;
+        }
+        .template-navbar {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        .template-navbar .nav-link {
+            color: #ffffff;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .template-navbar .nav-link:hover {
+            opacity: 1;
+            color: #ffffff;
+        }
+        .template-footer {
+            background-color: #1a1a1a;
+            color: #cccccc;
+            padding: 3rem 0;
+            font-size: 0.9rem;
+        }
+        .hero-section {
+            background-color: #fcfcfc;
+            border-bottom: 1px solid #eeeeee;
+            padding: 6rem 0;
+            text-align: left;
+        }
+        .content-section {
+            padding: 4rem 0;
+            line-height: 1.8;
+        }
+        
+        .preview-bar {
+            background-color: #1a1a1a;
+            color: white;
+            height: 56px;
+            z-index: 1050;
+        }
+        .screen-toggle-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            opacity: 0.7;
+            transition: color 0.2s, opacity 0.2s;
+        }
+        .screen-toggle-btn.active, .screen-toggle-btn:hover {
+            color: white;
+            opacity: 1;
+        }
+        .preview-content {
+            transition: width 0.5s ease;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+        
+        .w-mobile { width: 375px; }
+        .w-tablet { width: 768px; }
+        .w-desktop { width: 100%; }
+        
+        /* .preview-wrapper {
+            background-color: #e9ecef;
+            padding: 20px;
+            min-height: calc(100vh - 56px);
+        } */
+    </style>
+</head><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ template_name }} Preview - SiteLab</title>
+    
+    <!-- Load Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Load Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Georgia', serif; 
+            background-color: #f4f4f4;
+        }
+     
+        .template-navbar {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        .template-navbar .nav-link {
+            color: #cccccc;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .template-navbar .nav-link:hover {
+            opacity: 1;
+            color: #ffffff;
+        }
+        .template-footer {
+            background-color: #1a1a1a;
+            color: #cccccc;
+            padding: 3rem 0;
+            font-size: 0.9rem;
+        }
+        .hero-section {
+            background-color: #ffffff;
+            color: #333;
+            padding: 6rem 0;
+            border-bottom: 5px solid #007bff;
+        }
+        .section-header {
+            border-left: 5px solid #007bff;
+            padding-left: 15px;
+            margin-bottom: 2rem;
+        }
+        .service-icon {
+            color: #007bff;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .testimonial-card {
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+            border-left: 4px solid #007bff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        #preview-content {
+            transition: width 0.3s ease-in-out;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div id="preview-content">
+        <nav class="navbar navbar-expand-lg template-navbar sticky-top">
+            <div class="container">
+                <a class="navbar-brand text-white fw-bold" href="#">Minimal Consultant</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#templateNav2" aria-controls="templateNav2" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="templateNav2">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#expertise">Expertise</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#process">Process</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <section id="hero" class="hero-section text-center">
+            <div class="container" style="max-width: 900px;">
+                <h1 class="display-5 fw-bold mb-3">Maximizing Efficiency Through Strategic Consulting</h1>
+                <p class="lead text-muted mb-4">
+                    Providing high-impact solutions for businesses looking to scale operations and optimize performance.
+                </p>
+                <a href="#contact" class="btn btn-primary btn-lg shadow-sm">Book a Consultation</a>
+            </div>
+        </section>
+
+        <section id="expertise" class="py-5">
+            <div class="container">
+                <div class="section-header">
+                    <h3 class="fw-bold mb-0 text-dark">Areas of Expertise</h3>
+                </div>
+                <div class="row g-4 text-center">
+                    <div class="col-md-4">
+                        <i class="fas fa-chart-line service-icon"></i>
+                        <h5 class="fw-bold">Business Strategy</h5>
+                        <p class="small text-muted">Developing clear, actionable roadmaps for long-term growth.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fas fa-cogs service-icon"></i>
+                        <h5 class="fw-bold">Process Optimization</h5>
+                        <p class="small text-muted">Streamlining operations to reduce costs and increase output quality.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fas fa-users-cog service-icon"></i>
+                        <h5 class="fw-bold">Team Development</h5>
+                        <p class="small text-muted">Building high-performing teams through specialized training and coaching.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="process" class="py-5 bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <h3 class="fw-bold mb-0 text-dark">Our Process</h3>
+                </div>
+                
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-light p-4">
+                        <h5 class="fw-bold text-primary">1. Discovery & Analysis</h5>
+                        <p class="mb-0 text-muted">Deep dive into current operations, identifying core challenges and opportunities.</p>
+                    </li>
+                    <li class="list-group-item bg-light p-4">
+                        <h5 class="fw-bold text-primary">2. Strategy Formulation</h5>
+                        <p class="mb-0 text-muted">Crafting a bespoke strategy plan with measurable key performance indicators (KPIs).</p>
+                    </li>
+                    <li class="list-group-item bg-light p-4">
+                        <h5 class="fw-bold text-primary">3. Implementation & Coaching</h5>
+                        <p class="mb-0 text-muted">Hands-on support to execute the strategy and train internal teams for sustainability.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="py-5">
+            <div class="container text-center" style="max-width: 800px;">
+                <h3 class="fw-bold mb-4 text-dark">Client Testimonial</h3>
+                <div class="testimonial-card p-4 mx-auto">
+                    <i class="fas fa-quote-left text-primary mb-3"></i>
+                    <p class="fs-5 fst-italic">
+                        "The results were transformative. Our quarterly output increased by 40% after implementing their optimization strategy. Highly professional and effective."
+                    </p>
+                    <p class="fw-bold mb-0 text-dark">- CEO of TechCorp</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-5 bg-primary text-white">
+            <div class="container text-center" style="max-width: 600px;">
+                <h3 class="fw-bold mb-4">Start Your Transformation</h3>
+                <p class="lead">
+                    Ready to achieve your business goals? Contact us for an initial discussion.
+                </p>
+                <a href="mailto:contact@consultant.com" class="btn btn-light btn-lg mt-3 shadow-sm">Send Inquiry</a>
+            </div>
+        </section>
+        
+        <footer class="template-footer text-center">
+            <div class="container">
+                <p class="mb-0 small">Minimal Consultant | Strategic Solutions</p>
+                <p class="mb-0 small text-muted">Powered by SiteLab</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Load Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+
+<body class="position-relative">
+    <div class="preview-wrapper">
+        <div id="preview-content" class="preview-content w-desktop shadow-lg bg-white rounded-lg">
+            
+            <nav class="template-navbar navbar navbar-expand-lg">
+                <div class="container py-2">
+                    <a class="navbar-brand fw-bold fs-3 text-light" href="#">
+                        ALEXANDER GREY | Consultancy
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#templateNav2" aria-controls="templateNav2" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon text-light"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="templateNav2">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-light">
+                            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Approach</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Writings</a></li>
+                            <li class="nav-item"><a class="nav-link btn btn-sm btn-outline-light ms-lg-3" href="#">Book a Call</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <header class="hero-section">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <p class="text-secondary fw-bold mb-2 text-uppercase small">Growth Strategy & Operations</p>
+                            <h1 class="display-5 fw-bolder mb-4 text-dark">
+                                Optimizing Startups for Sustainable <span class="text-success">Scale.</span>
+                            </h1>
+                            <p class="lead text-muted mb-5">
+                                I help early-stage and established companies simplify their internal processes and align their product-market fit for maximum long-term growth.
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <img src="https://placehold.co/150x150/f4f4f4/333333?text=AG" alt="Profile" class="rounded-circle border border-5 border-light shadow">
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <section class="content-section bg-white">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <h2 class="fw-bold mb-4 text-center">My Focus Areas</h2>
+                            <div class="row g-4 text-center">
+                                <div class="col-md-4">
+                                    <i class="fas fa-chart-line fa-2x text-success mb-2"></i>
+                                    <h5 class="fw-bold">Process Automation</h5>
+                                    <p class="small text-muted">Eliminate bottlenecks to boost efficiency by 30%.</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <i class="fas fa-users fa-2x text-success mb-2"></i>
+                                    <h5 class="fw-bold">Team Structuring</h5>
+                                    <p class="small text-muted">Building cross-functional teams that deliver results.</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <i class="fas fa-lightbulb fa-2x text-success mb-2"></i>
+                                    <h5 class="fw-bold">Product Strategy</h5>
+                                    <p class="small text-muted">Defining product roadmaps based on market analysis.</p>
+                                </div>
+                            </div>
+                            <hr class="my-5">
+                            <blockquote class="blockquote border-start border-success border-4 ps-4">
+                                <p class="mb-0 fst-italic">"Simplicity is the ultimate sophistication. Complexity is often just a lack of clarity."</p>
+                                <footer class="blockquote-footer mt-2">Alexander Grey in <cite title="Source Title">The Scale Paradox</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="template-footer">
+                <div class="container text-center">
+                    <p class="mb-2">
+                        <a href="#" class="text-light text-decoration-none mx-2 small">Privacy Policy</a> |
+                        <a href="#" class="text-light text-decoration-none mx-2 small">Contact</a>
+                    </p>
+                    <p class="small mb-0 opacity-75">© 2025 Alexander Grey. All rights reserved. Built with SiteLab Template 2.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const previewContent = document.getElementById('preview-content');
+            const toggleButtons = document.querySelectorAll('.screen-toggle-btn');
+            const wrapper = document.querySelector('.preview-wrapper');
+            const content = document.getElementById('preview-content');
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const newWidthClass = this.getAttribute('data-width');
+                    
+                    toggleButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    previewContent.classList.remove('w-mobile', 'w-tablet', 'w-desktop');
+                    previewContent.classList.add(newWidthClass);
+                    
+                    if (newWidthClass === 'w-desktop') {
+                        wrapper.style.padding = '20px';
+                        content.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+                    } else {
+                        wrapper.style.padding = '20px 0'; 
+                        content.style.boxShadow = '0 5px 25px rgba(0,0,0,0.4)';
+                    }
+                });
+            });
+            
+            document.querySelector('.w-desktop').click();
+        });
+    </script>
+</body>
+</html>

@@ -1,16 +1,19 @@
 from django.urls import path
 from . import views
 
-# Define the app namespace for use in {% url 'portfolios:view_name' %}
 app_name = 'portfolios'
 
 urlpatterns = [
     path('our-services/', views.our_services, name='our_services'),
     path('portfolio-add/', views.portfolio_add, name='portfolio_add'),
     path('portfolio-edit/', views.portfolio_edit, name='portfolio_edit'),
-    path('portfolios/portfolio-preview-1/', views.portfolio_preview_1, name='portfolio_preview_1'),
-    path('portfolios/portfolio-preview-2/', views.portfolio_preview_2, name='portfolio_preview_2'),
     path('portfolio-published/', views.portfolio_published, name='portfolio_published'),
-    path('custom-website/', views.custom_website, name='custom_website'),
-    path('add-review/', views.add_review, name='add_review'),
+    
+    path('preview/', views.preview_view, name='preview_view'), 
+    path('published/', views.published_view, name='published_view'), 
+    
+    path('portfolio_template1/', views.template1_view, name='template1_view'),
+    path('portfolio_template2/', views.template2_view, name='template2_view'),
+    path('portfolio_template3/', views.template3_view, name='template3_view'),
+    path('portfolio_template4/', views.template4_view, name='template4_view'),
 ]

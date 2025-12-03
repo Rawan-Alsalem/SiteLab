@@ -1,0 +1,116 @@
+{% load static %}
+<style>
+    .t4-body {
+        font-family: monospace, sans-serif;
+        background-color: #1e1e1e;
+        color: #00ff00; 
+    }
+    .t4-navbar {
+        background-color: #0d0d0d;
+        border-bottom: 2px solid #00ff00;
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+    .t4-navbar .nav-link {
+        color: #00ff00;
+        text-shadow: 0 0 5px #00ff00;
+    }
+    .t4-footer {
+        background-color: #0d0d0d;
+        color: #00ff00;
+        padding: 2rem 0;
+        border-top: 2px solid #00ff00;
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+    .t4-hero {
+        padding: 8rem 0;
+        text-align: left;
+    }
+    .t4-section {
+        padding: 4rem 0;
+        border-top: 1px dashed #333;
+    }
+    .t4-code-block {
+        background-color: #0d0d0d;
+        border: 1px solid #00ff00;
+        padding: 1rem;
+        border-radius: 0;
+        white-space: pre-wrap;
+    }
+</style>
+
+<div class="t4-body">
+    <nav class="t4-navbar navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4 text-warning" href="#">
+                $ {{ p.personal.name|upper }} >
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#t4Navbar">
+                <span class="text-warning">|||</span>
+            </button>
+            <div class="collapse navbar-collapse" id="t4Navbar">
+                <ul class="navbar-nav ms-auto fw-bold">
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="t4-hero">
+        <div class="container">
+            <span class="text-warning">// Welcome to the Terminal</span>
+            <h1 class="display-3 fw-bolder mt-2 mb-3 text-light">{{ p.personal.title }}</h1>
+            <p class="lead text-success">{{ p.personal.tagline }}</p>
+        </div>
+    </header>
+
+    <section id="about" class="t4-section">
+        <div class="container">
+            <h2 class="fw-bold mb-4 text-warning">About ></h2>
+            <div class="t4-code-block">
+                <pre class="mb-0 text-success">
+> const user = {
+    name: "{{ p.personal.name }}",
+    role: "{{ p.personal.title }}",
+    bio: `{{ p.personal.about_me|truncatechars:300 }}`,
+    status: "Active"
+};
+
+> console.log(user.bio);
+// {{ p.personal.about_me }}
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="t4-section">
+        <div class="container">
+            <h2 class="fw-bold mb-4 text-warning">Projects ></h2>
+            <div class="row g-4">
+                {% for project in p.projects %}
+                <div class="col-md-6">
+                    <div class="card bg-dark text-success border-success t4-code-block">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-light">$ {{ project.title }}</h5>
+                            <p class="card-text small text-success">{{ project.description }}</p>
+                            <span class="small text-warning">Status: Completed</span>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-muted">Projects array is empty. Commit new code.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="t4-footer text-center">
+        <p class="fw-bold mb-2 text-warning">$ Contact: {{ p.contact.email }}</p>
+        <div class="mb-3">
+            <a href="mailto:{{ p.contact.email }}" class="text-success mx-2"><i class="fas fa-envelope fa-lg"></i></a>
+            <a href="{{ p.contact.linkedin }}" target="_blank" class="text-success mx-2"><i class="fab fa-linkedin fa-lg"></i></a>
+        </div>
+        <p class="small mb-0 opacity-75">// {{ p.personal.name }} - End of File.</p>
+    </footer>
+</div>

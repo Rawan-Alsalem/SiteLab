@@ -1,0 +1,103 @@
+{% load static %}
+<style>
+    .t3-body {
+        font-family: 'Inter', sans-serif;
+        background-color: #ffffff;
+    }
+    .t3-navbar {
+        background-color: #ffffff;
+        border-bottom: 1px solid #eee;
+    }
+    .t3-footer {
+        background-color: #f8f9fa;
+        color: #6c757d;
+        padding: 2rem 0;
+    }
+    .t3-hero {
+        padding: 5rem 0;
+        text-align: center;
+    }
+    .t3-section {
+        padding: 4rem 0;
+    }
+    .t3-project-image {
+        transition: transform 0.5s ease;
+        object-fit: cover;
+        height: 300px;
+    }
+    .t3-project-card:hover .t3-project-image {
+        transform: scale(1.05);
+    }
+</style>
+
+<div class="t3-body">
+    <nav class="t3-navbar navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold fs-4 text-danger" href="#">
+                {{ p.personal.name }}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#t3Navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="t3Navbar">
+                <ul class="navbar-nav ms-auto fw-bold">
+                    <li class="nav-item"><a class="nav-link text-dark" href="#work">Work</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="t3-hero bg-light">
+        <div class="container">
+            <h1 class="display-5 fw-bolder mb-3">{{ p.personal.title }}</h1>
+            <p class="lead text-muted">{{ p.personal.tagline }}</p>
+        </div>
+    </header>
+
+    <section id="work" class="t3-section">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5 text-dark">Portfolio Showcase</h2>
+            <div class="row g-4">
+                {% for project in p.projects %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card t3-project-card border-0 shadow-sm overflow-hidden rounded-3">
+                        <img src="{{ project.image }}" class="card-img-top t3-project-image" alt="{{ project.title }}">
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold text-danger">{{ project.title }}</h5>
+                            <p class="card-text small text-muted">{{ project.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center text-muted">No projects added yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="t3-section bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3 text-center mb-4 mb-md-0">
+                    <img src="{{ p.personal.image_url }}" alt="{{ p.personal.name }}" class="rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+                <div class="col-md-9">
+                    <h3 class="fw-bold mb-3 text-dark">About {{ p.personal.name }}</h3>
+                    <p class="text-secondary">{{ p.personal.about_me }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="t3-footer text-center">
+        <p class="fw-bold mb-2">Connect with {{ p.personal.name }}</p>
+        <div class="mb-3">
+            <a href="mailto:{{ p.contact.email }}" class="text-danger mx-2"><i class="fas fa-envelope fa-lg"></i></a>
+            <a href="{{ p.contact.linkedin }}" target="_blank" class="text-danger mx-2"><i class="fab fa-linkedin fa-lg"></i></a>
+            <a href="{{ p.contact.dribbble }}" target="_blank" class="text-danger mx-2"><i class="fab fa-dribbble fa-lg"></i></a>
+        </div>
+        <p class="small mb-0">© 2025 {{ p.personal.name }}. All Rights Reserved.</p>
+    </footer>
+</div>
