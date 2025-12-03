@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+{% block title %}My Requests | SiteLab{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+  <h2 class="fw-bold text-center glass-title mb-5">My Requests</h2>
+
+  {% if requests %}
+  <div class="row g-4">
+    {% for r in requests %}
+    <div class="col-md-6 col-lg-4">
+      <div class="glass-card p-4 shadow-lg rounded-4"
+        style="background: rgba(255,255,255,0.85); backdrop-filter: blur(15px);">
+
+        <!-- Title & Status -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-semibold mb-0">{{ r.project_title|truncatechars:30 }}</h5>
+          <span class="badge 
+                        {% if r.status == 'pending' %}bg-primary
+                        {% elif r.status == 'in_progress' %}bg-info
+                        {% elif r.status == 'completed' %}bg-success
+                        {% elif r.status == 'rejected' %}bg-danger
+                        {% endif %} py-1 px-2 fs-7">
+            {{ r.get_status_display }}
+          </span>
+        </div>
+
+        <!-- Payments -->
+        <div class="mb-3">
+          <p class="mb-1"><strong>Deposit:</strong>
+            {% if r.deposit_paid %}
+            <span class="badge bg-success">Paid</span>
+            {% else %}
+            <span class="badge bg-danger">Not Paid</span>
+            {% endif %}
+          </p>
+          <p class="mb-0"><strong>Final:</strong>
+            {% if r.final_paid %}
+            <span class="badge bg-success">Paid</span>
+            {% else %}
+            <span class="badge bg-danger">Not Paid</span>
+            {% endif %}
+          </p>
+        </div>
+
+        <!-- View Details Button -->
+        <a href="{% url 'custom:request_detail_view' pk=r.pk %}" class="btn btn-custom-primary w-100 mt-2">
+          View Details <i class="fa-solid fa-arrow-right ms-1"></i>
+        </a>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center py-5">
+    <p class="text-muted fs-5">You have no requests yet.</p>
+    <a href="{% url 'custom:create_request_view' %}" class="btn btn-custom-primary">Submit Your First Request</a>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

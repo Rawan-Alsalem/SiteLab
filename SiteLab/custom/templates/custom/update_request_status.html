@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% block title %}Update Request Status | SiteLab{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="card shadow-lg mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <h4 class="card-title mb-4">Update Status for:</h4>
+            <h5 class="mb-3">{{ req.project_title }}</h5>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Status</label>
+                    <select name="status" class="form-select">
+                        <option value="pending" {% if req.status == "pending" %}selected{% endif %}>Pending Review</option>
+                        <option value="in_progress" {% if req.status == "in_progress" %}selected{% endif %}>In Progress</option>
+                        <option value="completed" {% if req.status == "completed" %}selected{% endif %}>Completed</option>
+                        <option value="rejected" {% if req.status == "rejected" %}selected{% endif %}>Rejected</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Update Status</button>
+                <a href="{% url 'custom:admin_requests_view' %}" class="btn btn-secondary w-100 mt-2">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

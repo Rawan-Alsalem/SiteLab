@@ -1,0 +1,81 @@
+{% extends 'main/base.html' %}
+{% block title %}Custom Website Quote - SiteLab{% endblock %}
+
+{% block content %}
+<div class="blob blob-1" style="top: 15%; left: 0%;"></div>
+<div class="blob blob-2" style="bottom: 5%; right: 5%;"></div>
+
+<section class="py-5" style="padding-top: 7rem !important; padding-bottom: 3rem !important;">
+    <div class="container" data-aos="fade-down">
+        <p class="text-start text-primary fw-bold text-uppercase small mb-3">
+            <a href="{% url 'main:home' %}" class="text-primary text-decoration-none">Home</a> / 
+            <a href="{% url 'portfolios:our_services' %}" class="text-primary text-decoration-none">Services</a> / 
+            <span class="text-dark">Custom Request</span>
+        </p>
+
+        <h1 class="display-5 fw-bolder mb-2">
+            <i class="fa-solid fa-code text-warning me-3"></i> 
+            Start Your <span class="text-gradient">Custom Project</span>
+        </h1>
+
+        <p class="lead text-muted mx-auto" style="max-width: 800px;">
+            Tell us about your project idea. Our engineering team will build a custom solution 
+            specifically tailored to your goals and requirements.
+        </p>
+    </div>
+</section>
+
+<section class="pb-5">
+    <div class="container">
+        <div class="row justify-content-center" data-aos="fade-up">
+            <div class="col-lg-8">
+
+                {% if messages %}
+                    {% for msg in messages %}
+                    <div class="alert alert-{{ msg.tags }} fw-bold text-center mb-4">
+                        {{ msg }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="card p-5 w-100 shadow-lg">
+
+                    <h4 class="fw-bold mb-4 text-center">Project Details</h4>
+
+                    <form action="{% url 'custom:create_request_view' %}" method="post">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+
+                        <!-- Loop through all fields -->
+                        {% for field in form %}
+                        <div class="mb-4">
+                            <label class="glass-title fw-bold">{{ field.label }}</label>
+                            {{ field }}
+                            <div class="text-danger small">{{ field.errors }}</div>
+                        </div>
+                        {% endfor %}
+
+                        <div class="alert alert-warning small" role="alert">
+                            <i class="fa-solid fa-hourglass-half me-2"></i> 
+                            Our team will review your request and get back to you within 48 hours.
+                        </div>
+
+                        <button type="submit" class="btn btn-custom-primary btn-lg w-100">
+                            Submit Request <i class="fa-solid fa-paper-plane ms-2"></i>
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

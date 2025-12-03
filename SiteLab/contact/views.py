@@ -3,18 +3,21 @@ from django.http import HttpRequest
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from .models import Contact
 from .forms import ContactForm
 
-@login_required
+
 def contact_view(request: HttpRequest):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            contact = form.save() 
-            
+            contact = form.save(commit=False)
+            contact.user = request.user if request.user.is_authenticated else None
+            contact.save()
+
             # Send Confirmation Email
             content_html = render_to_string("contact/mail/confirmation.html", {'contact': contact})
             email_message = EmailMessage(
@@ -43,8 +46,8 @@ def superuser_required(view_func):
     return login_required(_wrapped_view, login_url='/login/')
 
 
-# Contact Us Messages page (admin or staff)
-@superuser_required
+# Contact Us Messages page (admin)
+@staff_member_required
 def contact_messages_view(request):
-    contact = Contact.objects.all().order_by('-created_at')
-    return render(request, 'contact/contact_messages.html', {'contact': contact})
+    messages_list = Contact.objects.all().order_by('-created_at')
+    return render(request, 'contact/contact_messages.html', {'messages_list': messages_list})
