@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
-from .models import Portfolio
+from .models import Portfolio, PortfolioTemplate
 from .forms import PortfolioForm
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError 
@@ -16,23 +16,14 @@ MOCK_REVIEWS = [
     {'username': 'Chris B.', 'text': 'Needed a professional site fast, and SiteLab delivered. Fantastic support staff!', 'rating': 5, 'initial': 'C'},
 ]
 
-MOCK_TEMPLATES = [
-    {'id': 1, 'name': 'Architect Minimal', 'description': 'A clean, typography-focused design perfect for designers and writers.', 'icon': 'fa-solid fa-pen-nib'},
-    {'id': 2, 'name': 'Professional Designer', 'description': 'A modern, image-heavy layout for creative professionals.', 'icon': 'fa-solid fa-palette'},
-    {'id': 3, 'name': 'Creative Photographer', 'description': 'Focus on high-resolution imagery and clean grids.', 'icon': 'fa-solid fa-camera'},
-    {'id': 4, 'name': 'Developer Terminal', 'description': 'A dark-mode, code-centric theme for software engineers.', 'icon': 'fa-solid fa-terminal'},
-]
-
-TEMPLATE_ID_MAP = {t['id']: t for t in MOCK_TEMPLATES}
-
-MOCK_USER_PK = 1
 
 
 def our_services(request):
     return render(request, 'portfolios/our-services.html', {'reviews': MOCK_REVIEWS})
 
 def portfolio_add(request):
-    return render(request, 'portfolios/portfolio-add.html', {'templates': MOCK_TEMPLATES})
+    templates = PortfolioTemplate.objects.all()
+    return render(request, 'portfolios/portfolio-add.html', {'templates': templates})
 
 
 def _get_portfolio_instance(user_pk, selected_template_id=1):
