@@ -9,14 +9,13 @@ class PortfolioTemplate(models.Model):
     """
     name = models.CharField(max_length=100)
     icon = models.CharField(max_length=100, help_text="FontAwesome class, e.g., 'fa-solid fa-camera'")
-
-    # Content Defaults — shown inside template preview
+    description = models.TextField(default="", blank=True)
+    
     full_name = models.CharField(max_length=100, default="Samantha J. Doe")
     tagline = models.CharField(max_length=255, default="Senior UX/UI Designer & Web Developer")
     about_me = models.TextField(default="A seasoned professional dedicated to crafting visually stunning and highly functional digital experiences.")
     contact_email = models.EmailField(default="contact@samanthajdoe.com")
 
-    # Project sample
     project_title = models.CharField(max_length=255, default="Sample Project")
     project_description = models.TextField(default="A sample project description to showcase the template layout.")
     project_url = models.URLField(
@@ -25,7 +24,6 @@ class PortfolioTemplate(models.Model):
         help_text="Example project link"
     )
 
-    # HTML template file path
     template_path = models.CharField(
         max_length=255,
         default="portfolios/portfolio_template1.html",

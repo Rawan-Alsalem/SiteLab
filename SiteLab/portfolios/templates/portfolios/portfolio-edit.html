@@ -35,8 +35,7 @@
                     <div class="card-body p-4">
                         <form method="post" id="portfolio-form" action="{% url 'portfolios:portfolio_edit' %}">
                             {% csrf_token %}
-                            <input type="hidden" name="template_id" value="{{ template_id }}">
-                            
+                            <input type="hidden" name="template" value="{{ current_template.id }}">
                             {% for field in form %}
                                 <div class="mb-3">
                                     <label for="{{ field.id_for_label }}" class="form-label fw-bold">{{ field.label }}</label>
