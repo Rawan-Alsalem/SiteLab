@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+{% block title %}Bad Request | SiteLab{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5 text-center">
+    <div class="glass-card p-5 shadow-lg rounded-4"
+         style="background: rgba(255,255,255,0.85); backdrop-filter: blur(15px);">
+
+        <h1 class="fw-bold display-4 text-info mb-3">400</h1>
+        <p class="fs-5 mb-4 text-muted">The request cannot be processed. Please try again.</p>
+
+        <a href="/" class="btn btn-custom-primary">
+            <i class="fa-solid fa-home me-1"></i> Home
+        </a>
+    </div>
+</div>
+{% endblock %}

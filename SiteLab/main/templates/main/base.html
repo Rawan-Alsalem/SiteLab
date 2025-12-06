@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}SiteLab | Creative Web Solutions{% endblock %}</title>
 
-    {% load static %}
+    
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -38,8 +41,12 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center gap-2">
                     <li class="nav-item"><a class="nav-link" href="{% url 'main:home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Services</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'main:our_services' %}">Services</a></li>
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'panel:panel_view' %}">User Panel</a></li>
+                    {% endif %}
+
                     <li class="nav-item"><a class="nav-link" href="{% url 'contact:contact_view' %}">Let's Talk</a></li>
                     <li class="nav-item ms-lg-2">
                         {% if request.user.is_authenticated %}
@@ -114,6 +121,21 @@
             duration: 1000,
             once: true,
             offset: 100,
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const viewAllBtn = document.querySelector('#viewAllActivityBtn');
+            const activityTabButton = document.querySelector('#activity-tab');
+
+            if (viewAllBtn && activityTabButton) {
+                viewAllBtn.addEventListener('click', function () {
+
+                    const tab = new bootstrap.Tab(activityTabButton);
+                    tab.show();
+
+                    activityTabButton.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
         });
     </script>
 

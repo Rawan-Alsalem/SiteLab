@@ -77,6 +77,7 @@ body {
     font-weight: 500;
     position: relative;
     padding-bottom: 5px;
+    font-colo:var(--dark-text);
 }
 
 .nav-link::after {
@@ -392,4 +393,53 @@ body {
     text-align: center;
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.tab-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #e5e7eb;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-weight: bold;
+}
+.tab-btn.active {
+    background-color: #60a5fa;
+    color: white;
+}
+
+.tab-content {
+    display: block !important;
+}
+.register-btn:hover {
+    background-color: #10b981;
+}
+
+.tab-profile {
+    display: none;
+}
+
+.reviews-container {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+}
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    color: #fff;
+}
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
 }

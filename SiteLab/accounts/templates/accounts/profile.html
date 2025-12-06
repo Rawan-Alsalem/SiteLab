@@ -3,8 +3,8 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<div class="full-card" data-aos="fade-up">
-    <div class="registertion-card">
+<div class="full-card mt-5" data-aos="fade-up">
+    <div class="registertion-card mt-5" style="max-width: 600px; margin: auto;">
         <h2 class="text-center mb-5">Your Profile</h2>
 
         <!-- Messages -->
@@ -16,72 +16,142 @@
         </div>
         {% endif %}
 
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
+        <!-- Tabs Navigation -->
+        <div class="tabs mb-4 d-flex justify-content-center gap-3">
+            <button class="tab-btn {% if active_tab == 'profileTab' %}active{% endif %}" onclick="openTab(event, 'profileTab')">Profile</button>
+            <button class="tab-btn {% if active_tab == 'passwordTab' %}active{% endif %}" onclick="openTab(event, 'passwordTab')">Change Password</button>
+        </div>
 
-            <!-- Avatar -->
-            <div class="mb-4 text-center">
-                <div class="avatar-container mb-3">
-                    {% if request.user.profile.avatar %}
-                    <img src="{{ request.user.profile.avatar.url }}" class="profile-avatar">
-                    {% else %}
-                    {% with username=request.user.username %}
-                    <div class="avatar-placeholder" style="background-color: {{ random_color }};">
-                        {{ username|slice:":2"|upper }}
-                    </div>
-                    {% endwith %}
-                    {% endif %}
-                </div>
+        <!-- Profile Tab -->
+        <div id="profileTab" class="tab-profile" style="display: {% if active_tab == 'profileTab' %}block{% else %}none{% endif %};">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
 
-                <div class="file-input-group">
-
-                    <label for="id_avatar" class="custom-file-upload-btn">
-                        Upload/Change Image
-                    </label>
-
-                    {{ form.avatar }}
-
-                    {% if request.user.profile.avatar %}
-                    <div class="current-avatar-details mt-2">
-
-                        <span class="current-file-name-text">
-                            Current Image:
-                            <a href="{{ request.user.profile.avatar.url }}" target="_blank"
-                                class="current-file-link-style">
-                                {{ request.user.profile.avatar.name|cut:"avatars/"|slice:":25" }}...
-                            </a>
-                        </span>
-
-                        <div class="clear-option">
-                            <input type="checkbox" name="avatar_clear" id="avatar_clear_id" class="clear-checkbox">
-                            <label for="avatar_clear_id" class="clear-label">Remove</label>
+                <!-- Avatar -->
+                <div class="mb-4 text-center">
+                    <div class="avatar-container">
+                        {% if request.user.profile.avatar %}
+                        <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" class="profile-avatar">
+                        {% else %}
+                        {% with username=request.user.username %}
+                        <div class="avatar-placeholder" style="background-color: {{ random_color }};">
+                            {{ username|slice:":2"|upper }}
                         </div>
+                        {% endwith %}
+                        {% endif %}
+                    </div>
+
+                    <label for="id_avatar" class="custom-file-upload-btn">Upload/Change Image</label>
+                    {{ profile_form.avatar }}
+
+                    {% if profile_form.avatar_clear %}
+                    <div class="clear-option mt-2">
+                        {{ profile_form.avatar_clear }}
+                        <label class="clear-label" for="{{ profile_form.avatar_clear.id_for_label }}">Remove current image</label>
                     </div>
                     {% endif %}
 
+                    {% if profile_form.avatar.errors %}
+                    <div class="text-danger small mt-1">{{ profile_form.avatar.errors }}</div>
+                    {% endif %}
                 </div>
 
-                {% if form.avatar.errors %}
-                <div class="text-danger small mt-1">{{ form.avatar.errors }}</div>
+                <!-- User fields -->
+                <div class="mb-3">
+                    <label for="{{ profile_form.first_name.id_for_label }}">First Name</label>
+                    {{ profile_form.first_name }}
+                    {% if profile_form.first_name.errors %}
+                    <div class="text-danger small mt-1">{{ profile_form.first_name.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ profile_form.last_name.id_for_label }}">Last Name</label>
+                    {{ profile_form.last_name }}
+                    {% if profile_form.last_name.errors %}
+                    <div class="text-danger small mt-1">{{ profile_form.last_name.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ profile_form.email.id_for_label }}">Email</label>
+                    {{ profile_form.email }}
+                    {% if profile_form.email.errors %}
+                    <div class="text-danger small mt-1">{{ profile_form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Profile fields -->
+                <div class="mb-3">
+                    <label for="{{ profile_form.job_title.id_for_label }}">Job Title</label>
+                    {{ profile_form.job_title }}
+                    {% if profile_form.job_title.errors %}
+                    <div class="text-danger small mt-1">{{ profile_form.job_title.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ profile_form.bio.id_for_label }}">Bio</label>
+                    {{ profile_form.bio }}
+                    {% if profile_form.bio.errors %}
+                    <div class="text-danger small mt-1">{{ profile_form.bio.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" name="save_profile" class="register-btn btn btn-success w-100">Save Profile</button>
+            </form>
+        </div>
+
+        <!-- Password Tab -->
+        <div id="passwordTab" class="tab-profile" style="display: {% if active_tab == 'passwordTab' %}block{% else %}none{% endif %};">
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in password_form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% if field.errors %}
+                    <div class="text-danger small mt-1">
+                        {% for err in field.errors %}
+                        {{ err }}<br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                {% if password_form.non_field_errors %}
+                <div class="text-danger small mt-1">
+                    {% for error in password_form.non_field_errors %}
+                    {{ error }}<br>
+                    {% endfor %}
+                </div>
                 {% endif %}
 
-                <p id="file-name-display" class="file-name-text mt-2"></p>
-            </div>
+                <button type="submit" name="change_password" class="register-btn btn btn-warning w-100">Change Password</button>
+            </form>
+        </div>
 
-            <!-- Other fields -->
-            {% for field in form %}
-            {% if field.name != 'avatar' and field.name != 'avatar_clear' %}
-            <div class="mb-4">
-                {{ field }}
-                {% if field.errors %}
-                <div class="text-danger small mt-1">{{ field.errors }}</div>
-                {% endif %}
-            </div>
-            {% endif %}
-            {% endfor %}
-
-            <button class="register-btn">Save</button>
-        </form>
     </div>
 </div>
+
+<script>
+    function openTab(evt, tabName) {
+        const tabContents = document.getElementsByClassName("tab-profile");
+        const tabBtns = document.getElementsByClassName("tab-btn");
+
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].style.display = "none";
+        }
+        for (let i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+</script>
 {% endblock %}

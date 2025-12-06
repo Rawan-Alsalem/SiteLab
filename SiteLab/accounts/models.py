@@ -40,3 +40,11 @@ class Profile(models.Model):
         return self.user.username
     
    
+class PrivacySettings(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="privacy_settings")
+    show_email = models.BooleanField(default=True, help_text="Allow others to see your email")
+    show_bio = models.BooleanField(default=True, help_text="Allow others to see your bio")
+    show_portfolio = models.BooleanField(default=True, help_text="Allow others to see your portfolio")
+
+    def __str__(self):
+        return f"Privacy Settings for {self.user.username}"

@@ -18,6 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import handler404, handler500, handler403, handler400
+
+handler404 = "main.views.error_404"
+handler500 = "main.views.error_500"
+handler403 = "main.views.error_403"
+handler400 = "main.views.error_400"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,8 +32,9 @@ urlpatterns = [
     path('contact/',include('contact.urls')),
     path('portfolios/',include('portfolios.urls')), 
     path('custom/', include("custom.urls")),
-    # path("panel/", include("panel.urls")),
+    path("panel/", include("panel.urls")),
 ]
 
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

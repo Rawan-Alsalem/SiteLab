@@ -2,6 +2,7 @@ from django import forms
 from django.forms.widgets import CheckboxInput
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Profile, User
+from .models import PrivacySettings
 
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -59,6 +60,19 @@ class LoginForm(AuthenticationForm):
 
 class ProfileForm(forms.ModelForm):
     avatar_clear = forms.BooleanField(required=False, widget=CheckboxInput)
+    first_name = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        'class': 'minimal-input',
+        'placeholder': 'First Name'
+    }))
+    last_name = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        'class': 'minimal-input',
+        'placeholder': 'Last Name'
+    }))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
+        'class': 'minimal-input',
+        'placeholder': 'Email'
+    }))
+
     class Meta:
         model = Profile
         fields = ["avatar", "job_title", "bio"]
@@ -78,14 +92,36 @@ class ProfileForm(forms.ModelForm):
             }),
         }
 
+    def __init__(self, *args, **kwargs):
+        user_instance = kwargs.pop('user_instance', None)
+        super().__init__(*args, **kwargs)
+        if user_instance:
+            self.fields['first_name'].initial = user_instance.first_name
+            self.fields['last_name'].initial = user_instance.last_name
+            self.fields['email'].initial = user_instance.email
+
     def save(self, commit=True):
-      instance = super().save(commit=False)
-      
-      if self.cleaned_data.get('avatar_clear'):
-          if instance.avatar:
-              instance.avatar.delete(save=False) 
-      
-      if commit:
-          instance.save()
-          
-      return instance
+        profile_instance = super().save(commit=False)
+        
+        
+        if self.cleaned_data.get('avatar_clear') and profile_instance.avatar:
+            profile_instance.avatar.delete(save=False)
+
+        user = profile_instance.user
+        user.first_name = self.cleaned_data.get('first_name')
+        user.last_name = self.cleaned_data.get('last_name')
+        user.email = self.cleaned_data.get('email')
+        if commit:
+            user.save()
+            profile_instance.save()
+        return profile_instance
+
+class PrivacySettingsForm(forms.ModelForm):
+    class Meta:
+        model = PrivacySettings
+        fields = ['show_email', 'show_bio', 'show_portfolio']
+        widgets = {
+            'show_email': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'show_bio': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'show_portfolio': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }

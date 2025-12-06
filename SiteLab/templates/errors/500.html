@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+{% block title %}Server Error | SiteLab{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5 text-center">
+    <div class="glass-card p-5 shadow-lg rounded-4"
+         style="background: rgba(255,255,255,0.85); backdrop-filter: blur(15px);">
+
+        <h1 class="fw-bold display-4 text-danger mb-3">500</h1>
+        <p class="fs-5 mb-4 text-muted">Something went wrong on our side. We're working on it!</p>
+
+        <a href="/" class="btn btn-custom-primary">
+            <i class="fa-solid fa-arrow-left me-1"></i> Go Back Home
+        </a>
+    </div>
+</div>
+{% endblock %}

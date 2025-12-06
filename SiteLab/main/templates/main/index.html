@@ -21,7 +21,7 @@
         </p>
         <div class="d-flex gap-3">
           <a
-            href="#"
+            href="{% url 'accounts:register_view' %}"
             class="btn btn-custom-primary shadow-lg"
           >
             Get Started <i class="fa-solid fa-arrow-right ms-2"></i>
@@ -165,122 +165,73 @@
 
 <section class="py-5">
   <div class="container">
-    <div
-      class="d-flex justify-content-between align-items-end mb-5"
-      data-aos="fade-right"
-    >
+    <div class="d-flex justify-content-between align-items-end mb-5" data-aos="fade-right">
       <div>
         <h2 class="fw-bold display-6">Community Love</h2>
         <p class="text-muted mb-0">Don't just take our word for it.</p>
       </div>
-      <a href="#" class="btn btn-dark rounded-pill">View All</a>
+      <a href="{% url 'main:all_reviews' %}" class="btn btn-dark rounded-pill">View All</a>
     </div>
 
     <div class="row g-4">
-      {% if top_reviews %} {% for review in top_reviews %}
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="glass-card p-4 h-100">
-          <div class="d-flex align-items-center mb-3">
-            <div
-              class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
-              style="width: 40px; height: 40px"
-            >
-              {{ review.user.username|slice:":1"|upper }}
-            </div>
-            <div class="ms-3">
-              <h6 class="fw-bold mb-0">{{ review.user.username }}</h6>
-              <small class="text-muted">Verified User</small>
-            </div>
-          </div>
-          <div class="mb-3 text-warning">
-            {% for i in "12345"|make_list %}
-            <i class="fa-solid fa-star"></i>
-            {% endfor %}
-          </div>
-          <p class="fst-italic text-muted">"{{ review.text }}"</p>
-        </div>
-      </div>
-      {% endfor %} {% else %}
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="glass-card p-4 h-100">
-          <div class="d-flex align-items-center mb-3">
-            <div
-              class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
-              style="width: 40px; height: 40px"
-            >
-            </div>
-            <div class="ms-3">
-              <h6 class="fw-bold mb-0">Sarah Jenkins</h6>
-              <small class="text-muted">Freelancer</small>
-            </div>
-          </div>
-          <div class="mb-3 text-warning">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-            ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-            ><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="fst-italic text-muted">
-            "SiteLab completely transformed my portfolio. I got three job offers
-            within a week of launching!"
-          </p>
-        </div>
-      </div>
+      {% if top_reviews %}
+        {% for review in top_reviews %}
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+            <div class="glass-card p-4 h-100">
 
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="glass-card p-4 h-100">
-          <div class="d-flex align-items-center mb-3">
-            <div
-              class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
-              style="width: 40px; height: 40px"
-            >
-              M
-            </div>
-            <div class="ms-3">
-              <h6 class="fw-bold mb-0">Mark D.</h6>
-              <small class="text-muted">Agency Owner</small>
-            </div>
-          </div>
-          <div class="mb-3 text-warning">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-            ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-            ><i class="fa-solid fa-star"></i>
-          </div>
-          <p class="fst-italic text-muted">
-            "The custom website team is top-tier. They handled our complex
-            requirements with ease."
-          </p>
-        </div>
-      </div>
+              <!-- USER AVATAR + USERNAME -->
+              <div class="d-flex align-items-center mb-3">
+                {% if review.user.profile.avatar %}
+                  <img src="{{ review.user.profile.avatar.url }}" class="rounded-circle flex-shrink-0"
+                    style="width: 40px; height: 40px; object-fit: cover;">
+                {% else %}
+                  <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                    style="width: 40px; height: 40px">
+                    {{ review.user.username|slice:":1"|upper }}
+                  </div>
+                {% endif %}
 
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-        <div class="glass-card p-4 h-100">
-          <div class="d-flex align-items-center mb-3">
-            <div
-              class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center"
-              style="width: 40px; height: 40px"
-            >
-              A
-            </div>
-            <div class="ms-3">
-              <h6 class="fw-bold mb-0">Alex T.</h6>
-              <small class="text-muted">Photographer</small>
+                <div class="ms-3">
+                  <h6 class="fw-bold mb-0">{{ review.user.username }}</h6>
+                  <small class="text-muted">{{ review.created_at|date:"M d, Y" }}</small>
+                </div>
+              </div>
+
+              <!-- STAR RATING -->
+              <div class="mb-3 text-warning">
+                {% for i in "12345"|make_list %}
+                  {% if forloop.counter <= review.rating %}
+                    <i class="fa-solid fa-star"></i>
+                  {% elif review.rating|stringformat:"s" == "4.5" and forloop.counter == 5 %}
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                  {% elif review.rating|stringformat:"s" == "3.5" and forloop.counter == 4 %}
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                  {% elif review.rating|stringformat:"s" == "2.5" and forloop.counter == 3 %}
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                  {% elif review.rating|stringformat:"s" == "1.5" and forloop.counter == 2 %}
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                  {% else %}
+                    <i class="fa-regular fa-star text-muted opacity-50"></i>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+              <!-- REVIEW TEXT -->
+              <p class="fst-italic text-dark small">
+                "{{ review.review_text }}"
+              </p>
+
+              <a href="#" class="stretched-link visually-hidden"></a>
             </div>
           </div>
-          <div class="mb-3 text-warning">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-            ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-            ><i class="fa-solid fa-star-half-stroke"></i>
-          </div>
-          <p class="fst-italic text-muted">
-            "Clean, modern, and super easy to use. I love the new dashboard
-            features."
-          </p>
-        </div>
-      </div>
+        {% endfor %}
+      {% else %}
+        <p>No reviews yet.</p>
       {% endif %}
     </div>
   </div>
 </section>
+
 
 <section class="py-5 text-center mb-5" data-aos="zoom-in-up">
   <div class="container">

@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-{% block title %}Custom Website Quote - SiteLab{% endblock %}
+{% block title %}Custom Website - SiteLab{% endblock %}
 
 {% block content %}
 <div class="blob blob-1" style="top: 15%; left: 0%;"></div>
@@ -9,7 +9,7 @@
     <div class="container" data-aos="fade-down">
         <p class="text-start text-primary fw-bold text-uppercase small mb-3">
             <a href="{% url 'main:home' %}" class="text-primary text-decoration-none">Home</a> / 
-            <a href="{% url 'portfolios:our_services' %}" class="text-primary text-decoration-none">Services</a> / 
+            <a href="{% url 'main:our_services' %}" class="text-primary text-decoration-none">Services</a> / 
             <span class="text-dark">Custom Request</span>
         </p>
 

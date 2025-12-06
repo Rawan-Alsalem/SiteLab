@@ -44,8 +44,9 @@
         </div>
 
         <!-- View Details Button -->
-        <a href="{% url 'custom:request_detail_view' pk=r.pk %}" class="btn btn-custom-primary w-100 mt-2">
-          View Details <i class="fa-solid fa-arrow-right ms-1"></i>
+        <a href="{% url 'custom:request_detail_view' r.pk %}?next={{ request.get_full_path }}"
+          class="btn btn-custom-primary w-100 mt-2">
+          <i class="fa-solid fa-arrow-right ms-1"></i> View Details
         </a>
 
       </div>

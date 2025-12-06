@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+{% block title %}All Reviews{% endblock %}
+
+{% block content %}
+<div class="container mt-5  py-5">
+    <h2 class="mb-5">All Reviews</h2>
+
+    {% if reviews %}
+        <div class="row g-4">
+            {% for review in reviews %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if review.user.profile.avatar %}
+                                <img src="{{ review.user.profile.avatar.url }}" class="rounded-circle flex-shrink-0"
+                                    style="width: 40px; height: 40px; object-fit: cover;">
+                            {% else %}
+                                <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                                    style="width: 40px; height: 40px">
+                                    {{ review.user.username|slice:":1"|upper }}
+                                </div>
+                            {% endif %}
+                            <div class="ms-3">
+                                <h6 class="fw-bold mb-0">{{ review.user.username }}</h6>
+                                <small class="text-muted">{{ review.created_at|date:"M d, Y" }}</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Rating -->
+                        <div class="mb-3 text-warning">
+                            {% for i in "12345"|make_list %}
+                                {% if forloop.counter <= review.rating %}
+                                    <i class="fa-solid fa-star"></i>
+                                {% elif review.rating|stringformat:"s" == "4.5" and forloop.counter == 5 %}
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                {% elif review.rating|stringformat:"s" == "3.5" and forloop.counter == 4 %}
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                {% elif review.rating|stringformat:"s" == "2.5" and forloop.counter == 3 %}
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                {% elif review.rating|stringformat:"s" == "1.5" and forloop.counter == 2 %}
+                                    <i class="fa-solid fa-star-half-stroke"></i>
+                                {% else %}
+                                    <i class="fa-regular fa-star text-muted opacity-50"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <p class="fst-italic text-dark small">"{{ review.review_text }}"</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

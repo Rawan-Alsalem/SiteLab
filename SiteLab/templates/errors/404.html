@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+{% block title %}404 Not Found | SiteLab{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5 text-center">
+    <div class="glass-card p-5 shadow-lg rounded-4"
+         style="background: rgba(255,255,255,0.85); backdrop-filter: blur(15px);">
+
+        <h1 class="fw-bold display-4 text-danger mb-3">404</h1>
+        <p class="fs-5 mb-4 text-muted">Oops! The page you're looking for doesn't exist.</p>
+
+        <a href="/" class="btn btn-custom-primary">
+            <i class="fa-solid fa-house me-1"></i> Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}
