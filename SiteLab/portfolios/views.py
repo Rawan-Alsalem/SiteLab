@@ -75,7 +75,7 @@ def portfolio_edit(request):
                     updates = True
             
             if updates:
-                portfolio.save(update_fields=data.keys())
+                portfolio.save(update_fields=data.keys()) 
             
             return JsonResponse({'status': 'saved', 'message': 'Portfolio auto-saved.'})
         
@@ -84,17 +84,24 @@ def portfolio_edit(request):
     
 
     if request.method == 'POST':
-        if 'publish_site' in request.POST:
-            portfolio.is_published = True
-            portfolio.save(update_fields=['is_published'])
-            return redirect("portfolios:portfolio_published")
-        
-        elif 'unpublish_site' in request.POST:
-            portfolio.is_published = False
-            portfolio.save(update_fields=['is_published'])
-            return redirect("portfolios:portfolio_edit") 
+        form = PortfolioForm(request.POST, instance=portfolio)
+        if form.is_valid():
+            form.save()
+            
+            if 'publish_site' in request.POST:
+                portfolio.is_published = True
+                portfolio.save(update_fields=['is_published'])
+                return redirect("portfolios:publish_success")
+            
+            elif 'unpublish_site' in request.POST:
+                portfolio.is_published = False
+                portfolio.save(update_fields=['is_published'])
+                return redirect("portfolios:portfolio_edit") 
 
-    form = PortfolioForm(instance=portfolio)
+            return redirect("portfolios:portfolio_edit")
+        
+
+    form = PortfolioForm(instance=portfolio) 
     
     context = {
         "form": form,
@@ -110,7 +117,7 @@ def portfolio_edit(request):
 @login_required
 def portfolio_published(request):
     """
-    Landing page after publishing.
+    Landing page after publishing. (Success Message - maps to publish_success URL)
     """
     portfolio = get_object_or_404(Portfolio, user=request.user)
 
@@ -126,7 +133,7 @@ def portfolio_published(request):
         "live_url": live_url,
         "template_path": portfolio.get_template_path(),
     }
-    return render(request, 'portfolios/published.html', context)
+    return render(request, 'portfolios/publish_success.html', context)
 
 
 @xframe_options_exempt
@@ -155,7 +162,7 @@ def preview_view(request):
 
 def published_view(request, username):
     """
-    Public published site for the given username.
+    Public published site for the given username. (Template Wrapper - maps to portfolio_live template)
     """
     user = get_object_or_404(User, username=username)
     portfolio = get_object_or_404(Portfolio, user=user)
@@ -168,7 +175,7 @@ def published_view(request, username):
         "template_path": portfolio.get_template_path(),
         "template_name": portfolio.template.name if portfolio.template else "",
     }
-    return render(request, 'portfolios/published.html', context)
+    return render(request, 'portfolios/portfolio_live.html', context)
 
 
 def template1_view(request):

@@ -133,6 +133,68 @@ document.addEventListener('DOMContentLoaded', function() {
         const lastName = data['last_name'] || '';
         return `${firstName} ${lastName}`.trim();
     }
+    
+    const updateContent = (data) => {
+        if (!data || typeof data !== 'object') return;
+
+        const liveData = {...data, full_name: getFullName(data)};
+        
+        Object.keys(liveData).forEach(key => {
+            if (key === 'projects' || key === 'full_name') return; 
+
+            const elements = document.querySelectorAll(`[data-field="${key}"]`);
+            elements.forEach(el => {
+                const value = liveData[key] || '';
+                
+                if (el.tagName === 'A' && key === 'contact_email') {
+                    el.href = `mailto:${value}`; 
+                    el.textContent = value;
+                } else if (el.tagName === 'A' && key.endsWith('_url')) {
+                    el.href = value || '#'; 
+                } else {
+                    el.textContent = value;
+                }
+            });
+        });
+        
+        document.querySelectorAll('[data-field="full_name"]').forEach(el => {
+            el.textContent = liveData.full_name;
+        });
+
+
+        const projectCards = document.querySelectorAll('.card-project'); 
+        const incomingProjects = data.projects || []; 
+        
+        projectCards.forEach((card, index) => {
+            const proj = incomingProjects[index];
+            
+            if (proj) {
+                const liveTitle = proj.title || '';
+                const liveDesc = proj.description || '';
+                const liveUrl = proj.url || '#';
+                
+                const title = card.querySelector(`[data-field="project${index+1}_title"]`);
+                const desc = card.querySelector(`[data-field="project${index+1}_description"]`);
+                const url_link = card.querySelector(`[data-field="project${index+1}_url"]`);
+                
+                if (title) title.textContent = liveTitle;
+                if (desc) desc.textContent = liveDesc;
+                
+                if (url_link) {
+                    url_link.href = liveUrl; 
+                    if (url_link.textContent.trim() === '') {
+                        url_link.textContent = 'View Project';
+                    }
+                }
+
+                card.style.display = ''; 
+            } else {
+                card.style.display = 'none'; 
+            }
+        });
+
+    };
+
 
     toggleButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -165,59 +227,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelector('.screen-toggle-btn[data-width="w-desktop"]').click();
 
-    const projectFields = [
-        { title: 'project1_title', desc: 'project1_description', url: 'project1_url' },
-        { title: 'project2_title', desc: 'project2_description', url: 'project2_url' },
-        { title: 'project3_title', desc: 'project3_description', url: 'project3_url' }
-    ];
-    
+
     window.addEventListener('message', function(event) {
-        const data = event.data;
-
-        if (!data || typeof data !== 'object') return;
-
-        const liveData = {...data, full_name: getFullName(data)};
-        
-        Object.keys(liveData).forEach(key => {
-            if (key === 'projects') return;
-
-            const elements = document.querySelectorAll(`[data-field="${key}"]`);
-            elements.forEach(el => {
-                const value = liveData[key] || '';
-                
-                if (el.tagName === 'A' && key === 'contact_email') {
-                    el.href = `mailto:${value}`; 
-                    el.textContent = value;
-                } else {
-                    el.textContent = value;
-                }
-            });
-        });
-
-        const projectCards = document.querySelectorAll('.card-project'); 
-        
-        projectCards.forEach((card, index) => {
-            const proj = data.projects[index];
-            
-            if (proj) {
-                const liveTitle = proj.title || '';
-                const liveDesc = proj.description || '';
-                const liveUrl = proj.url || '#';
-                
-                const title = card.querySelector(`[data-field="project${index+1}_title"]`);
-                const desc = card.querySelector(`[data-field="project${index+1}_description"]`);
-                const url_link = card.querySelector(`[data-field="project${index+1}_url"]`);
-                
-                if (title) title.textContent = liveTitle;
-                if (desc) desc.textContent = liveDesc;
-                if (url_link) url_link.href = liveUrl; 
-
-                card.style.display = ''; 
-            } else {
-                card.style.display = 'none'; 
-            }
-        });
-
+        if (event.data && typeof event.data === 'object') {
+            updateContent(event.data);
+        }
     });
 });
 </script>

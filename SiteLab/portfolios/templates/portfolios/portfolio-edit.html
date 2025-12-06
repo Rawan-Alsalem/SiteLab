@@ -72,11 +72,9 @@
                             <h5 class="fw-bold text-primary border-bottom pb-2 mb-3 mt-5">Projects (Up to 3)</h5>
                             
                             {% for i in "123" %}
-                                {# STEP 1: Create simple string variables for the field names #}
                                 {% with title_name='project'|add:i|add:'_title' %}
                                 {% with desc_name='project'|add:i|add:'_description' %}
                                 {% with url_name='project'|add:i|add:'_url' %}
-                                    {# STEP 2: Use the simple string variables to get the Form Field Object #}
                                     {% with project_title_field=form|get_field:title_name %}
                                     {% with project_desc_field=form|get_field:desc_name %}
                                     {% with project_url_field=form|get_field:url_name %}
@@ -109,13 +107,13 @@
 
                         <div class="card-footer bg-white border-0 p-4 pt-3">
                             <div class="d-grid gap-2">
-                                <button type="submit" name="action" value="save" class="btn btn-lg btn-secondary w-100 fw-bold">
+                                <button type="submit" name="save_changes" value="save" class="btn btn-lg btn-secondary w-100 fw-bold">
                                     <i class="fa-solid fa-save me-2"></i> Save Changes
                                 </button>
                                 <a href="{% url 'portfolios:preview_view' %}" target="_blank" class="btn btn-lg btn-info w-100 fw-bold text-white">
                                     <i class="fa-solid fa-expand me-2"></i> Full Page Preview
                                 </a>
-                                <button type="submit" name="action" value="publish" class="btn btn-lg btn-primary w-100 fw-bold">
+                                <button type="submit" name="publish_site" value="publish" class="btn btn-lg btn-primary w-100 fw-bold">
                                     <i class="fa-solid fa-cloud-upload-alt me-2"></i> Publish Portfolio
                                 </button>
                             </div>
@@ -152,7 +150,7 @@
             const data = {};
             
             form.querySelectorAll('input, textarea, select').forEach(field => {
-                if (field.name && field.name !== 'csrfmiddlewaretoken' && field.name !== 'action') {
+                if (field.name && field.name !== 'csrfmiddlewaretoken' && field.name !== 'publish_site' && field.name !== 'save_changes') {
                     data[field.name] = field.value || '';
                 }
             });
@@ -226,9 +224,7 @@
             updatePreview();
         });
         
-        if (iframe.contentWindow) {
-            updatePreview();
-        }
+        updatePreview();
     });
 </script>
 {% endblock %}

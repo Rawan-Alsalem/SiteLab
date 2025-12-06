@@ -63,7 +63,7 @@
             <div class="row g-4">
                 {% for project in data.get_projects_list %}
                 <div class="col-md-6 col-lg-4">
-                    <div class="card t3-project-card border-0 shadow-sm overflow-hidden rounded-3">
+                    <div class="card t3-project-card border-0 shadow-sm overflow-hidden rounded-3 card-project">
                         <img src="https://placehold.co/600x400/dc3545/FFFFFF?text={{ project.title|urlencode }}" class="card-img-top t3-project-image" alt="{{ project.title }}" data-field="project{{ forloop.counter }}_image">
                         <a href="{{ project.url }}" class="stretched-link" target="_blank" data-field="project{{ forloop.counter }}_url"></a>
                         <div class="card-body p-4">
